@@ -2,7 +2,7 @@ import connect from '@/dbConfig/db'
 import { NextRequest, NextResponse } from 'next/server';
 import User from '@/models/userModel'
 import bcryptjs from "bcryptjs";
-import { auth } from '@/helpers/firebase';
+// import { auth } from '@/helpers/firebase';
 connect().then(() => {
     console.log('Connected to MongoDB');
 })

@@ -4,7 +4,7 @@ import User from "@/models/userModel";
 import connect from "@/dbConfig/db";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
-import { auth } from '@/helpers/firebase';
+// import { auth } from '@/helpers/firebase';
 
 connect();
 export const dynamic = 'force-dynamic'

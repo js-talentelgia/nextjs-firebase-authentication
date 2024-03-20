@@ -1,6 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
-import React from 'react'
+import React ,{ useState, useEffect } from "react"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import axios from "axios"
@@ -12,7 +11,7 @@ import {
 	onAuthStateChanged
 } from "@/lib/firebase/auth";
 ''
-export default function logInPage(){
+export default function LogInPage(){
     const [user, setUser] = React.useState({
         email: "",
         password: ""
@@ -137,7 +136,7 @@ export default function logInPage(){
         </button>
         </div>
         <div className="text-center">
-        Don't have an account? <Link href="/signup" className="text-indigo-500 underline">SignUp</Link>
+        Don`t have an account? <Link href="/signup" className="text-indigo-500 underline">SignUp</Link>
         </div>
     </div>
     </div>

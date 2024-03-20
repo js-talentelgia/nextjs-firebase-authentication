@@ -2,9 +2,9 @@
 import axios from "axios"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-export default function profilePage(){
+export default function ProfilePage(){
     const router = useRouter();
     const [data, setData] = useState("Nothing")
     const logout = async () => {

@@ -1,6 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
-import React from 'react'
+import React, { useEffect, useState } from "react"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import axios from "axios"
@@ -8,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import {
     StoreUserWithEmailAndPassword
 } from "@/lib/firebase/auth";
-export default function signUpPage(){
+export default function SignUpPage(){
     const router = useRouter();
     const [user, setUser] = React.useState({
         username: "",
@@ -46,7 +45,7 @@ export default function signUpPage(){
                     ...user,
                     firebase_user_uid: response.user.uid
                 });
-                console.log(user);
+                // console.log(user);
                 // return false;
                 const dbResponse = await axios.post('/api/users/signup', user)
                 if(dbResponse.data.status === 400 || dbResponse.data.status === 500){
