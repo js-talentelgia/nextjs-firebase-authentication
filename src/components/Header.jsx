@@ -44,8 +44,8 @@ export default function Header({initialUser}) {
 	const router = useRouter();
 	const handleSignOut = async event => {
 		event.preventDefault();
-		await signOut();
 		await axios.get('/api/users/logout');
+		await signOut();
 		toast.success('Logout successfully..');
 		router.push('/login')
 	};
