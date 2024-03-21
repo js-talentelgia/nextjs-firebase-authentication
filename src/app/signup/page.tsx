@@ -159,7 +159,7 @@ export default function SignUpPage(){
                     </button>
                     </div>
                     <div className="text-center">
-                    Already have an account?.. <Link href="/login" className="text-indigo-500 underline">LogIn</Link>
+                    Already have an account?....... <Link href="/login" className="text-indigo-500 underline">LogIn</Link>
                     </div>
                 </div>
                 </div>
