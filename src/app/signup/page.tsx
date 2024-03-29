@@ -99,9 +99,7 @@ export default function SignUpPage(){
                 {loading ? "Processing" : "Sign up"}
                 </h2>
                 </div>
-
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              
                 <div className="space-y-6">
                     <div>
                     <label className="block text-sm font-medium leading-6 text-white">
@@ -117,7 +115,6 @@ export default function SignUpPage(){
                         />
                     </div>
                     </div>
-
                     <div>
                     <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
                         Email
@@ -132,7 +129,6 @@ export default function SignUpPage(){
                         />
                     </div>
                     </div>
-
                     <div>
                     <div className="flex items-center justify-between">
                         <label htmlFor="password" className="block text-sm font-medium leading-6 text-white">
