@@ -155,11 +155,11 @@ export default function SignUpPage(){
                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         onClick={onSignUp}
                     >
-                        Signup
+                        Sign up
                     </button>
                     </div>
                     <div className="text-center">
-                    Already have an account?? <Link href="/login" className="text-indigo-500 underline">LogIn</Link>
+                    Already have an account? <Link href="/login" className="text-indigo-500 underline">SignIn</Link>
                     </div>
                 </div>
                 </div>
