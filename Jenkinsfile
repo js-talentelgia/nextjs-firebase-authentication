@@ -1,12 +1,10 @@
 pipeline {
     agent any
-    
     environment {
         REMOTE_HOST = '3.131.137.248'
         REMOTE_USER = 'ubuntu'
         SSH_KEY = credentials('nextjs-server')
     }
-    
     stages {
         stage('connect with the server') {
             steps {
@@ -20,9 +18,7 @@ pipeline {
                 }
             }
         }
-        
         // Add more stages as needed
     }
-    
     // Post-build actions or notifications can be added here
 }
