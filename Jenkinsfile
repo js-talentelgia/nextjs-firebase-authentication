@@ -22,8 +22,6 @@
 //     }
 //     // Post-build actions or notifications can be added here
 // }
-
-
 node {
   stage('SCM') {
     checkout scm
