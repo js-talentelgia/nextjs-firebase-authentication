@@ -22,14 +22,39 @@
 //     }
 //     // Post-build actions or notifications can be added here
 // }
-node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarQube_Scanner';
-    withSonarQubeEnv() {
-      sh "${scannerHome}/bin/sonar-scanner"
-    }
-  }
+// node {
+//   stage('SCM') {
+//     checkout scm
+//   }
+//   stage('SonarQube Analysis') {
+//     def scannerHome = tool 'SonarQube_Scanner';
+//     withSonarQubeEnv() {
+//       sh "${scannerHome}/bin/sonar-scanner"
+//     }
+//   }
+// }
+
+pipeline {
+  agent any
+
+  tools {nodejs "node_v18"}
+
+  stages {
+     stage('Git Pull') {
+       steps {
+          echo 'Code Checkout'
+          }
+        }
+     stage('Install Typescript') {
+        steps {
+           sh 'npm install typescript'
+            }
+         }
+     stage('SonarQube Analysis') {
+          def scannerHome = tool 'SonarQube_Scanner';
+          withSonarQubeEnv() {
+            sh "${scannerHome}/bin/sonar-scanner"
+          }
+        }
+       }
 }
