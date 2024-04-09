@@ -22,53 +22,14 @@
 //     }
 //     // Post-build actions or notifications can be added here
 // }
-// node {
-//   stage('SCM') {
-//     checkout scm
-//   }
-//   stage('SonarQube Analysis') {
-//     def scannerHome = tool 'SonarQube_Scanner';
-//     withSonarQubeEnv() {
-//       sh "${scannerHome}/bin/sonar-scanner"
-//     }
-//   }
-// }
-
-
-
-
-
-
-
-
-pipeline {
-  agent any
-
-  tools {
-    nodejs "node_v18" // Assuming "node_v18" is the name of your Node.js tool installation in Jenkins
-    SonarQube "SonarQube_Scanner" // Assuming "SonarQube_Scanner" is the name of your SonarQube Scanner tool installation in Jenkins
+node {
+  stage('SCM') {
+    checkout scm
   }
-
-  stages {
-    stage('Git Pull') {
-      steps {
-        echo 'Code Checkout'
-        checkout scm
-      }
-    }
-
-    stage('Install Typescript') {
-      steps {
-        sh 'npm install typescript'
-      }
-    }
-
-    stage('SonarQube Analysis') {
-      steps {
-        withSonarQubeEnv('SonarQube_Scanner') { // Using withSonarQubeEnv directly inside the stage
-          sh 'sonar-scanner'
-        }
-      }
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarQube_Scanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
     }
   }
 }
