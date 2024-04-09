@@ -61,7 +61,7 @@ node {
 
   stage('Check Security Hotspots') {
     def scannerHome = tool 'SonarQube_Scanner'
-    def serverUrl = 'http://your-sonarqube-server-url' // Replace with your SonarQube server URL
+    def serverUrl = 'http://3.15.201.78:9000/' // Replace with your SonarQube server URL
 
     withSonarQubeEnv() {
       def taskId = sh(
