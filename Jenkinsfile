@@ -61,11 +61,11 @@ node {
 
   stage('Check Security Hotspots') {
     def scannerHome = tool 'SonarQube_Scanner'
-    
+    def serverUrl = 'http://your-sonarqube-server-url' // Replace with your SonarQube server URL
+
     withSonarQubeEnv() {
-      def serverUrl = 'http://3.15.201.78:9000/' // Replace with your SonarQube server URL
       def taskId = sh(
-        script: "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.host.url=${serverUrl} | grep 'Task id:' | awk '{print $3}'",
+        script: "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.host.url=\"${serverUrl}\" | grep 'Task id:' | awk '{print \$3}'",
         returnStdout: true
       ).trim()
       
@@ -91,3 +91,4 @@ node {
     }
   }
 }
+
