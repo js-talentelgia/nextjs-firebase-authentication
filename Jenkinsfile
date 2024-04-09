@@ -37,24 +37,31 @@
 pipeline {
   agent any
 
-  tools {nodejs "node_v18"}
+  tools {
+    nodejs "node_v18" // Assuming "node_v18" is the name of your Node.js tool installation in Jenkins
+  }
 
   stages {
-     stage('Git Pull') {
-       steps {
-          echo 'Code Checkout'
-          }
+    stage('Git Pull') {
+      steps {
+        echo 'Code Checkout'
+        checkout scm
+      }
+    }
+
+    stage('Install Typescript') {
+      steps {
+        sh 'npm install typescript'
+      }
+    }
+
+    stage('SonarQube Analysis') {
+      steps {
+        def scannerHome = tool 'SonarQube_Scanner';
+        withSonarQubeEnv() {
+          sh "${scannerHome}/bin/sonar-scanner"
         }
-     stage('Install Typescript') {
-        steps {
-           sh 'npm install typescript'
-            }
-         }
-     stage('SonarQube Analysis') {
-          def scannerHome = tool 'SonarQube_Scanner';
-          withSonarQubeEnv() {
-            sh "${scannerHome}/bin/sonar-scanner"
-          }
-        }
-       }
+      }
+    }
+  }
 }
