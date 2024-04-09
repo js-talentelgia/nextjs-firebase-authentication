@@ -26,6 +26,9 @@ node {
   stage('SCM') {
     checkout scm
   }
+  stage('check node version') {
+    sh "node -v"
+  }
   stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarQube_Scanner';
     withSonarQubeEnv() {
