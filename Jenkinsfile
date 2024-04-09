@@ -31,8 +31,8 @@ node {
     def scannerHome = tool 'SonarQube_Scanner'
     withSonarQubeEnv() {
       sh """
-        ${scannerHome}/bin/sonar-scanner \
-        -Dsonar.exclusions=node_modules/**
+        -Dsonar.exclusions=node_modules/** \
+        ${scannerHome}/bin/sonar-scanner
         """
     }
   }
