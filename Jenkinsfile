@@ -29,7 +29,7 @@ node {
 
   stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarQube_Scanner'
-    withSonarQubeEnv('SonarQube_Scanner') {
+    withSonarQubeEnv() {
       sh """
         ${scannerHome}/bin/sonar-scanner \
         -Dsonar.exclusions=node_modules/**
