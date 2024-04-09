@@ -65,7 +65,7 @@ node {
 
     withSonarQubeEnv() {
       def taskId = sh(
-        script: "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.host.url=\"${serverUrl}\" | grep 'Task id:' | awk '{print \$3}'",
+        script: "${scannerHome}/bin/sonar-scanner -Dsonar.host.url=\"${serverUrl}\" | grep 'Task id:' | awk '{print \$3}'",
         returnStdout: true
       ).trim()
       
@@ -91,4 +91,5 @@ node {
     }
   }
 }
+
 
