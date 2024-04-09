@@ -29,11 +29,15 @@ node {
 
   stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarQube_Scanner'
+    def nodeJSHome = tool 'node_v18' // Use the configured NodeJS installation
+
     withSonarQubeEnv() {
       sh """
+        ${scannerHome}/bin/sonar-scanner \
         -Dsonar.exclusions=node_modules/** \
-        ${scannerHome}/bin/sonar-scanner
-        """
+        -Dsonar.nodejs.executable=${nodeJSHome}/bin/node
+      """
     }
   }
 }
+
