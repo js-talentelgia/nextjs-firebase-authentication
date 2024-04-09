@@ -34,12 +34,19 @@
 //   }
 // }
 
+
+
+
+
+
+
+
 pipeline {
   agent any
 
   tools {
     nodejs "node_v18" // Assuming "node_v18" is the name of your Node.js tool installation in Jenkins
-    tool 'SonarQube_Scanner' // Assuming "SonarQube_Scanner" is the name of your SonarQube Scanner tool installation in Jenkins
+    SonarQube "SonarQube_Scanner" // Assuming "SonarQube_Scanner" is the name of your SonarQube Scanner tool installation in Jenkins
   }
 
   stages {
