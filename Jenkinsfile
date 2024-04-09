@@ -27,12 +27,6 @@ node {
     checkout scm
   }
 
-  stage('Check Node.js Version') {
-    steps {
-      sh 'node -v'
-    }
-  }
-
   stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarQube_Scanner'
     withSonarQubeEnv() {
@@ -43,4 +37,3 @@ node {
     }
   }
 }
-
