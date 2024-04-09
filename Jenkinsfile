@@ -26,13 +26,14 @@ node {
   stage('SCM') {
     checkout scm
   }
+
   stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarQube_Scanner';
-    withSonarQubeEnv() {
-      sh '''
+    def scannerHome = tool 'SonarQube_Scanner'
+    withSonarQubeEnv('SonarQube_Scanner') {
+      sh """
         ${scannerHome}/bin/sonar-scanner \
-        -Dsonar.exclusions=node_modules/**/* \
-        '''
+        -Dsonar.exclusions=node_modules/**
+        """
     }
   }
 }
