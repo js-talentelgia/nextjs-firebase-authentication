@@ -22,6 +22,25 @@
 //     }
 //     // Post-build actions or notifications can be added here
 // }
+// node {
+//   stage('SCM') {
+//     checkout scm
+//   }
+
+//   stage('SonarQube Analysis') {
+//     def scannerHome = tool 'SonarQube_Scanner'
+//     def nodeJSHome = tool 'node_v18' // Use the configured NodeJS installation
+
+//     withSonarQubeEnv() {
+//       sh """
+//         ${scannerHome}/bin/sonar-scanner \
+//         -Dsonar.exclusions=node_modules/** \
+//         -Dsonar.nodejs.executable=${nodeJSHome}/bin/node
+//       """
+//     }
+//   }
+// }
+
 node {
   stage('SCM') {
     checkout scm
@@ -39,15 +58,36 @@ node {
       """
     }
   }
-}
 
-// No need to occupy a node
-stage("Quality Gate"){
-  timeout(time: 1, unit: 'MINUTES') { // Just in case something goes wrong, pipeline will be killed after a timeout
-    def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-    if (qg.status != 'OK') {
-      error "Pipeline aborted due to quality gate failure: ${qg.status}"
+  stage('Check Security Hotspots') {
+    def scannerHome = tool 'SonarQube_Scanner'
+    
+    withSonarQubeEnv() {
+      def serverUrl = 'http://3.15.201.78:9000/' // Replace with your SonarQube server URL
+      def taskId = sh(
+        script: "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.host.url=${serverUrl} | grep 'Task id:' | awk '{print $3}'",
+        returnStdout: true
+      ).trim()
+      
+      if (taskId) {
+        def apiUrl = "${serverUrl}/api/issues/search?componentKeys=${env.JOB_NAME}&types=SECURITY_HOTSPOT&statuses=OPEN&ps=1&asc=false&sonar.branch.name=${env.BRANCH_NAME}&taskId=${taskId}"
+        def response = httpRequest(url: apiUrl, acceptType: 'APPLICATION_JSON')
+        
+        def issues = readJSON text: response.content
+        
+        if (issues.total > 0) {
+          currentBuild.result = 'FAILURE'
+          emailext(
+            subject: "Security hotspots found in ${env.JOB_NAME} on branch ${env.BRANCH_NAME}",
+            body: "Security hotspots have been found in the SonarQube scan. Please review and address them.",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            replyTo: "jenkins@yourcompany.com",
+            attachLog: true
+          )
+        }
+      } else {
+        error "Failed to retrieve task ID from SonarQube scan."
+      }
     }
   }
 }
-
